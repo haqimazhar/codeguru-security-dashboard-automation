@@ -2,6 +2,7 @@ import hashlib
 import json
 import requests
 from datetime import datetime, timedelta
+import os
 
 # Constants
 # Fetch environment variables
