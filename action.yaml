@@ -26,6 +26,13 @@ inputs:
 runs:
   using: "docker"
   image: "dockerfile"
+  env:
+    SARIF_FILE: ${{ inputs.sarif_file }}
+    CLICKUP_API_URL: ${{ inputs.clickup_api_url }}
+    CLICKUP_API_TOKEN: ${{ inputs.clickup_api_token }}
+    CUSTOM_FIELD_ID: ${{ inputs.custom_field_id }}
+    LIST_ID: ${{ inputs.list_id }}
+    ASSIGNEE_IDS: ${{ inputs.assignee_ids }}
 
 outputs:
   result:
