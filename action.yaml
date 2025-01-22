@@ -3,7 +3,7 @@ description: "Custom GitHub Action to process a CodeGuru SARIF file and create C
 author: "Haqim Azhar"
 
 inputs:
-  sarif_artifact_name:
+  sarif_file:
     description: "Name of the SARIF artifact uploaded by the previous step"
     required: true
   clickup_api_url:
