@@ -1,0 +1,32 @@
+name: "Process CodeGuru SARIF Findings"
+description: "Custom GitHub Action to process a CodeGuru SARIF file and create ClickUp tasks."
+author: "Haqim Azhar"
+
+inputs:
+  sarif_artifact_name:
+    description: "Name of the SARIF artifact uploaded by the previous step"
+    required: true
+  clickup_api_url:
+    description: "ClickUp API URL"
+    required: true
+    default: "https://api.clickup.com/api/v2/list/{list_id}/task"
+  clickup_api_token:
+    description: "ClickUp API Token"
+    required: true
+  custom_field_id:
+    description: "ClickUp Custom Field ID"
+    required: true
+  list_id:
+    description: "ClickUp List ID"
+    required: true
+  assignee_ids:
+    description: "Comma-separated list of assignee IDs"
+    required: true
+
+runs:
+  using: "docker"
+  image: "dockerfile"
+
+outputs:
+  result:
+    description: "Result of the action"

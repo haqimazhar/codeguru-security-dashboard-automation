@@ -1,0 +1,29 @@
+name: Process SARIF with Custom Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      sarif_file:
+        description: "Path to the SARIF file."
+        required: true
+        default: "test-sarif.json"
+  push:
+    branches:
+      - main
+
+jobs:
+  process-sarif:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Custom Action to Process SARIF
+        uses: ./action.yaml
+        with:
+          sarif_file: codeguru-security-results.sarif.json
+          clickup_api_token: ${{ secrets.CLICKUP_API_TOKEN }}
+          custom_field_id: "1029a60c-56d5-4164-b9cd-a261b665a7b3"
+          list_id: "901605889287"
+          assignee_ids: "90707236"
