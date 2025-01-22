@@ -1,10 +1,15 @@
+# Use Python Alpine base image
 FROM python:3.13.0-alpine3.20
 
-COPY main.py /home/app/main.py
-COPY requirements.txt /home/app/requirements.txt
+# Set working directory
+WORKDIR /home/app
+
+# Copy necessary files
+COPY main.py .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Action entrypoint
+# Set entrypoint
 ENTRYPOINT ["python", "/home/app/main.py"]
