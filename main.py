@@ -153,7 +153,7 @@ def process_sarif(file_path, existing_hashes):
             "tags": [rule_id],
             "priority": priority,
             "due_date": due_date,
-            "assignees": ASSIGNEE_IDS,
+            "assignees": [ASSIGNEE_IDS],
             "include_closed": True,
             "custom_fields": [
                 {
