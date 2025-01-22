@@ -10,7 +10,7 @@ CLICKUP_API_URL = os.getenv("CLICKUP_API_URL")
 CLICKUP_API_TOKEN = os.getenv("CLICKUP_API_TOKEN")
 CUSTOM_FIELD_ID = os.getenv("CUSTOM_FIELD_ID")
 LIST_ID = os.getenv("LIST_ID")
-ASSIGNEE_IDS = list(map(int, os.getenv("ASSIGNEE_IDS").split(',')))  # Convert to a list of integers
+ASSIGNEE_IDS = os.getenv("ASSIGNEE_IDS")  # Convert to a list of integers
 
 # Function to fetch all tasks and extract custom field values
 def fetch_existing_hashes():
