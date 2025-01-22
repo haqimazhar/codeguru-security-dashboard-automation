@@ -168,7 +168,7 @@ def process_sarif(file_path, existing_hashes):
 
 # Main function
 def main():
-    sarif_file = "./codeguru-security-results.sarif 2.json"
+    sarif_file = SARIF_FILE
     existing_hashes = fetch_existing_hashes()
     print(f"Existing hashes: {existing_hashes}")
 
