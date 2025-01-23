@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - main
+      - feature/codeguru-api-integration
 
 jobs:
   process-sarif:
@@ -20,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Custom Action to Process SARIF
-        uses: haqimazhar/codeguru-security-dashboard-automation@v1.0.0
+        uses: haqimazhar/codeguru-security-dashboard-automation@v2.0.0
         with:
           sarif_file: "./codeguru-security-results.sarif.json"
           clickup_api_token: ${{ secrets.CLICKUP_API_TOKEN }}
