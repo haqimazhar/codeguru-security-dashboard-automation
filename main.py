@@ -131,7 +131,11 @@ def process_findings(findings,existing_hashes):
                 print(f"Skipping task creation for finding ID: {finding_id} (already exists)")
                 continue
 
-            due_date = calculate_due_date(severity)
+            # Map severity to priority
+            priority = map_severity_to_priority(severity)
+
+            # Calculate the due date based on the priority
+            due_date = calculate_due_date(priority)
 
             # Create task data
             task_data = {
@@ -141,13 +145,7 @@ def process_findings(findings,existing_hashes):
                     f"Description: {description}\n\n"
                 ),
                 "tags": [rule_id],
-                "priority": {
-                    "Critical": 1,
-                    "High": 2,
-                    "Medium": 3,
-                    "Low": 4,
-                    "Info": 4
-                }.get(severity, 4),
+                "priority": priority,
                 "due_date": due_date,
                 "assignees": [ASSIGNEE_IDS],
                 "custom_fields": [
