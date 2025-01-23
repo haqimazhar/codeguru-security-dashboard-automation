@@ -22,6 +22,10 @@ inputs:
   assignee_ids:
     description: "Comma-separated list of assignee IDs"
     required: true
+  scan_name:
+    description: "CodeGuru scan name"
+    required: true
+    default: "CGS-Github-respond-io-master"
 
 runs:
   using: "docker"
@@ -33,6 +37,7 @@ runs:
     CUSTOM_FIELD_ID: ${{ inputs.custom_field_id }}
     LIST_ID: ${{ inputs.list_id }}
     ASSIGNEE_IDS: ${{ inputs.assignee_ids }}
+    SCAN_NAME: ${{ inputs.scan_name }}
 
 outputs:
   result:
