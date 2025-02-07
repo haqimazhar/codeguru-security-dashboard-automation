@@ -205,9 +205,13 @@ def fetch_and_count_tasks_by_severity():
         page += 1  # Fetch next page
 
     print("\nTask Count by Severity (To-Do & In Progress):")
-    for severity, count in severity_counts.items():
-        print(f"{severity}: {count}")
-        print(f'::set-output name=severity::{count}')
+    output_path = os.getenv("GITHUB_OUTPUT")
+    if output_path:
+        with open(output_path, "a") as output_file:
+            output_file.write(f"Critical={severity_counts['Critical']}\n")
+            output_file.write(f"High={severity_counts['High']}\n")
+            output_file.write(f"Medium={severity_counts['Medium']}\n")
+            output_file.write(f"Low={severity_counts['Low']}\n")
 
 
     
