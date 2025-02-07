@@ -48,4 +48,4 @@ outputs:
   Medium:
     description: "Number of Medium finding"
   Low:
-    description: "Number of Low findings
+    description: "Number of Low findings"
