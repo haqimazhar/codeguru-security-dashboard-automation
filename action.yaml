@@ -5,7 +5,6 @@ author: "Haqim Azhar"
 inputs:
   sarif_file:
     description: "Name of the SARIF artifact uploaded by the previous step"
-    required: true
   clickup_api_url:
     description: "ClickUp API URL"
     required: true
