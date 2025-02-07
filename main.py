@@ -11,6 +11,13 @@ LIST_ID = os.getenv("LIST_ID")
 ASSIGNEE_IDS = os.getenv("ASSIGNEE_IDS")
 SCAN_NAME = os.getenv("SCAN_NAME")
 
+SEVERITY_MAPPING = {
+    1: "Critical",
+    2: "High",
+    3: "Medium",
+    4: "Low"
+}
+
 codeguru_client = boto3.client('codeguru-security')
 
 # Fetch all existing ClickUp task hashes
@@ -157,6 +164,54 @@ def process_findings(findings,existing_hashes):
             }
             create_task(task_data)
 
+def fetch_and_count_tasks_by_severity():
+    url = f"https://api.clickup.com/api/v2/list/{LIST_ID}/task?statuses[]=to%20do&statuses[]=in%20progress"
+    headers = {
+        "Authorization": CLICKUP_API_TOKEN,
+        "Accept": "application/json"
+    }
+
+    severity_counts = {"Critical": 0, "High": 0, "Medium": 0, "Low": 0}
+
+    page = 0
+    while True:
+        paginated_url = f"{url}&page={page}"
+        response = requests.get(paginated_url, headers=headers)
+
+        if response.status_code != 200:
+            print(f"Error fetching tasks: {response.status_code}, {response.text}")
+            return
+
+        data = response.json()
+        tasks = data.get("tasks", [])
+
+        for task in tasks:
+            priority_data = task.get("priority")
+            print(priority_data)
+
+            if isinstance(priority_data, dict) and "id" in priority_data:
+                priority = int(priority_data["id"])
+                print(priority)  
+            else:
+                priority = None  # Handle missing priority
+
+            severity = SEVERITY_MAPPING.get(priority, "Low")  
+            print(severity)
+            severity_counts[severity] += 1
+
+        if data.get("last_page", False):
+            break
+
+        page += 1  # Fetch next page
+
+    print("\nTask Count by Severity (To-Do & In Progress):")
+    for severity, count in severity_counts.items():
+        print(f"{severity}: {count}")
+        print(f'::set-output name=severity::{count}')
+
+
+    
+
 
 # Main function
 def main():
@@ -164,6 +219,7 @@ def main():
     existing_hashes = fetch_existing_hashes()
     findings = fetch_codeguru_findings(SCAN_NAME)
     process_findings(findings, existing_hashes)
+    fetch_and_count_tasks_by_severity()
 
 if __name__ == "__main__":
     main()

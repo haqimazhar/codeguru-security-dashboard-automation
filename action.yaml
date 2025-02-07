@@ -42,3 +42,11 @@ runs:
 outputs:
   result:
     description: "Result of the action"
+  Critical:
+    description: "Number of Critical findings"
+  High:
+    description: "Number of High findings"
+  Medium:
+    description: "Number of Medium finding"
+  Low:
+    description: "Number of Low findings
